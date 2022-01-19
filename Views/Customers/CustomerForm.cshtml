@@ -1,0 +1,48 @@
+﻿@model Libly.ViewModels.CustomerFormViewModel
+@{
+    ViewBag.Title = "NewCustomer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Model.Customer == null)
+{
+    <h2>New Customer</h2>
+}
+else
+{
+    <h2>Edit Customer</h2>
+}
+
+
+@using (Html.BeginForm("Save", "Customers"))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.Name)
+        @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.Name)
+    </div>
+    <div class="form-group">
+        <label for="MembershipId">Membership</label>
+        @Html.DropDownListFor(m => m.Customer.MembershipId, new SelectList(Model.Memberships, "Id", "Name"), "Select Membership", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.MembershipId)
+    </div>
+    <div class="form-group">
+        <label for="Birthday">Date of Birth</label>
+        @Html.TextBoxFor(m => m.Customer.Birthday, "{0:d MMM yyy}", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Customer.Birthday)
+    </div>
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.Customer.IsSubscribed) Subscribed?
+        </label>
+    </div>
+    @Html.HiddenFor(m => m.Customer.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn bg-primary">Save</button>
+
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

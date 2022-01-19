@@ -1,0 +1,16 @@
+﻿@model Libly.Models.Book
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+<ul>
+    <li>Publish Date: @Model.PublishDate.Value.ToShortDateString()</li>
+    <li>Author: @Model.Author</li>
+    <li>Genre: @Model.Genre.Name</li>
+    <li>Number in Stock: @Model.NumberInStock</li>
+
+
+</ul>
